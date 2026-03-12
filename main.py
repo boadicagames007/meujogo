@@ -1,51 +1,32 @@
 import pygame
-import random
-import asyncio # Isso aqui é o que destrava a tela preta
+import asyncio
 
 async def main():
     pygame.init()
+    # Criando a tela do Dandan Game Studio
     tela = pygame.display.set_mode((800, 600))
-    relogio = pygame.time.Clock()
+    pygame.display.set_caption("Dandan Game Studio - ONLINE")
+    
+    nave_x = 400
+    rodando = True
 
-    # VARIÁVEIS
-    nave_x, nave_y = 400, 550
-    pontos = 0
-    tiros, inimigos = [], []
-    jogo_ativo = True
-
-    while jogo_ativo:
-        tela.fill((0, 0, 0)) # Fundo preto
+    while rodando:
+        tela.fill((0, 0, 20)) # Fundo azul escuro espacial
         
-        for ev in pygame.event.get():
-            if ev.type == pygame.QUIT: jogo_ativo = False
-            if ev.type == pygame.KEYDOWN:
-                if ev.key == pygame.K_SPACE:
-                    tiros.append([nave_x + 15, nave_y])
+        for evento in pygame.event.get():
+            if evento.type == pygame.QUIT:
+                rodando = False
 
-        # Movimento
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_LEFT] and nave_x > 0: nave_x -= 8
-        if keys[pygame.K_RIGHT] and nave_x < 770: nave_x += 8
+        # Movimento simples
+        teclas = pygame.key.get_pressed()
+        if teclas[pygame.K_LEFT]: nave_x -= 5
+        if teclas[pygame.K_RIGHT]: nave_x += 5
 
-        # Inimigos
-        if len(inimigos) < 5:
-            inimigos.append([random.randint(0, 770), 0])
-
-        for i in inimigos[:]:
-            i[1] += 5
-            pygame.draw.rect(tela, (255, 0, 0), (i[0], i[1], 30, 30))
-            if i[1] > 600: inimigos.remove(i)
-
-        for t in tiros[:]:
-            t[1] -= 10
-            pygame.draw.rect(tela, (255, 255, 0), (t[0], t[1], 5, 10))
-            if t[1] < 0: tiros.remove(t)
-
-        # Desenho Nave
-        pygame.draw.polygon(tela, (0, 255, 0), [(nave_x, nave_y+30), (nave_x+15, nave_y), (nave_x+30, nave_y+30)])
-
+        # Desenha a nave (um triângulo verde)
+        pygame.draw.polygon(tela, (0, 255, 0), [(nave_x, 550), (nave_x+20, 520), (nave_x+40, 550)])
+        
         pygame.display.flip()
-        await asyncio.sleep(0) # ESSENCIAL: Isso avisa o navegador para rodar o jogo
-        relogio.tick(60)
+        # O SEGREDO: Essa linha abaixo destrava o carregamento
+        await asyncio.sleep(0) 
 
 asyncio.run(main())
