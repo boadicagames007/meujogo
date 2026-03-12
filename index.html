@@ -1,16 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
     <meta charset="utf-8">
-    <title>Dandan Game Studio - Space Shooter</title>
+    <title>Dandan Game Studio</title>
     <script src="https://pygame-web.github.io/archives/0.8/pygbag.js"></script>
+    <style>
+        body { background-color: black; margin: 0; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100vh; color: white; }
+    </style>
 </head>
-<body style="margin:0;bgcolor:black;display:flex;justify-content:center;align-items:center;height:100vh">
-    <div id="game"></div>
+<body>
+    <div id="game_container">Carregando Dandan Game Studio...</div>
     <script>
         window.onload = function() {
-            // Isso inicia o seu main.py automaticamente no navegador
-            Pygbag.start("game", "main.py");
+            // O segredo está aqui: o ponto "." avisa que o main.py está na mesma pasta
+            Pygbag.start("game_container", "./main.py");
         };
     </script>
 </body>
