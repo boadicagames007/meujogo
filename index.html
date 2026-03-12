@@ -4,15 +4,17 @@
     <meta charset="utf-8">
     <title>Dandan Game Studio</title>
     <script src="https://pygame-web.github.io/archives/0.8/pygbag.js"></script>
+    <style>
+        body { background-color: black; color: white; text-align: center; padding-top: 20%; font-family: Arial; }
+    </style>
 </head>
-<body style="margin:0; background:black; color:white;">
-    <div id="game"></div>
+<body>
+    <div id="game">Carregando o motor do jogo... aguarde...</div>
     <script>
         window.onload = function() {
-            // O comando abaixo força o Pygbag a procurar o arquivo main.py na raiz
-           pygbag.start("game", "main.py";
+            // ATENÇÃO: p minúsculo aqui é o que resolve!
+            pygbag.start("game", "main.py");
         };
     </script>
 </body>
 </html>
-
